@@ -1,2 +1,2 @@
 # NeoGenome
-Assembly, annotation, and analysis of the Neomusotima conspurcatalis genome. 
+Assembly, annotation, and analysis of the <i>Neomusotima conspurcatalis</i> genome. 
