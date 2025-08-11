@@ -22,3 +22,11 @@ gbextractor="/path/to/gbseqextractor.py"
 python $gbextractor -f [genome.gb] -prefix [genome]
 ```
 
+### Removal of Mitogenome and Contamination in Nuclear Assembly
+
+Minimap2 was used to map contigs in the nuclear assembly to the mitogenome assembled above. These contigs were removed from the final assembly. 
+
+```
+minimap2 -ax asm5 Neo_v1.XXX.fasta final_mitogenome.fasta > ref_to_mt.sam 
+```
+
