@@ -1,5 +1,13 @@
 # Assembly and Annotation of <i>Neomusotima</i> Genome
 
+### k-mer Spectrum and Genome Size Estimation
+
+We used KMC to generate k-mer frequency spectra for k=17, 21, 31, 41, 51, and 61. The k-mer histogram was read into GenomeScope2 and a custom R script to estimate genome size and heterozygosity. 
+
+```
+kmc -kXX -t16 -ci1 -cs1000 $reads XXmers
+kmc_tools transform XXmers histogram XXmer.hist
+```
 
 ### Mitogenome Assembly and Annotation
 
