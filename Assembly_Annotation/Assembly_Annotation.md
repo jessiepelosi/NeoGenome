@@ -9,6 +9,15 @@ kmc -kXX -t16 -ci1 -cs1000 $reads XXmers
 kmc_tools transform XXmers histogram XXmer.hist
 ```
 
+### Nuclear Genome Assembly
+
+Teleomeric repeats were identified with tidk using the Lepidoptera repeat AACCT.  
+
+```
+tidk find --clade Lepidoptera --output asm_tidk --dir . asm.fasta 
+tidk plot --tsv [asm_tidk_telomeric_repeat_windows.tsv]
+```
+
 ### Mitogenome Assembly and Annotation
 
 We used MitoHiFi to first identify the closest reference mitogenome available on NCBI and then assemble and annotate the mitogenome for <i>Neomusotima</i> using this as a reference genome. 
