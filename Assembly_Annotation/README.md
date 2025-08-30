@@ -2,7 +2,7 @@
 
 ### k-mer Spectrum and Genome Size Estimation
 
-We used KMC to generate k-mer frequency spectra for k=17, 21, 31, 41, 51, and 61. The k-mer histogram was read into GenomeScope2 and a custom R script to estimate genome size and heterozygosity. 
+We used KMC to generate k-mer frequency spectra for k=21, 31, 41, 51, and 61. The k-mer histogram was read into GenomeScope2 and a custom R script to estimate genome size and heterozygosity. 
 
 ```
 kmc -kXX -t16 -ci1 -cs1000 $reads XXmers
@@ -11,12 +11,28 @@ kmc_tools transform XXmers histogram XXmer.hist
 
 ### Nuclear Genome Assembly
 
+We used hifiasm to assemble the nuclear genome. 
+
+```
+hifiasm -t 96 --hg-size 500m --n-hap 8 -o Neo_asm ../m84082_250722_081851_s1.hifi_reads.bc2074.fasta
+awk '/^S/{print ">"$2;print $3}' Neo_asm.bp.p_ctg.gfa > Neo_asm.bp.p_ctg.fasta
+```
+
+PURGE HAPLOTIGS
+
+Assess completeness of the assembly with compleasm. 
+
+```
+compleasm run -a $asm -l lepidoptera_odb10 -o $asm.busco -t 8 --miniprot_execute_path ./miniprot/miniprot
+```
+
 Teleomeric repeats were identified with tidk using the Lepidoptera repeat AACCT.  
 
 ```
-tidk find --clade Lepidoptera --output asm_tidk --dir . asm.fasta 
+tidk find --clade Lepidoptera --output asm_tidk --dir . $asm 
 tidk plot --tsv [asm_tidk_telomeric_repeat_windows.tsv]
 ```
+
 
 ### Mitogenome Assembly and Annotation
 
