@@ -18,6 +18,12 @@ hifiasm -t 96 --hg-size 500m --n-hap 8 -o Neo_asm ../m84082_250722_081851_s1.hif
 awk '/^S/{print ">"$2;print $3}' Neo_asm.bp.p_ctg.gfa > Neo_asm.bp.p_ctg.fasta
 ```
 
+To visualize the assembly in Bandage, we need to change the depth flag in the graph file. 
+```
+sed 's/rd:i:/dp:f:/g' Neo_asm.bp.p_ctg.gfa > Neo_asm.bp.p_ctg.bandage.gfa
+```
+
+
 PURGE HAPLOTIGS
 
 Assess completeness of the assembly with compleasm. 
