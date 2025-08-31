@@ -23,8 +23,15 @@ To visualize the assembly in Bandage, we need to change the depth flag in the gr
 sed 's/rd:i:/dp:f:/g' Neo_asm.bp.p_ctg.gfa > Neo_asm.bp.p_ctg.bandage.gfa
 ```
 
+We used purge_haplotigs to remove duplicated sequences, possibly representing un-purged haplotypic contigs, from the assembly. We also retained contigs that were at least 1Mb in length using seqkit.  
 
-PURGE HAPLOTIGS
+```
+minimap2 -ax map-hifi -t 36 $ref $reads --secondary=no | samtools sort -m 1G -o Neo_k21.nhap8.reads.bam -T tmp.ali
+purge_haplotigs hist -b Neo_k21.nhap8.reads.bam -g Neo_k21nhap8.bp.p_ctg.fasta -t 16 -d 500
+purge_haplotigs cov -i Neo_k21.nhap8.reads.bam -l 8 -m 65 -h 300
+purge_haplotigs purge -g Neo_k21nhap8.bp.p_ctg.fasta -c coverage_stats.csv -b Neo_k21.nhap8.reads.bam -I 1G
+seqkit seq -m 1000000 curated.fasta > Neo_k21.nhap8.purgeHaps.l8m65h300.fasta
+```
 
 Assess completeness of the assembly with compleasm. 
 
@@ -39,6 +46,14 @@ tidk find --clade Lepidoptera --output asm_tidk --dir . $asm
 tidk plot --tsv [asm_tidk_telomeric_repeat_windows.tsv]
 ```
 
+### Nuclear Genome Annotation 
+
+We first generated a species-specific repeat library and then masked repeats in the genome prior to generating gene model predictions. We used the dfam-tetools-latest singularity image.  
+
+```
+singularity exec dfam-tetools-latest.sif BuildDatabase -name Neomusotima $asm
+singularity exec dfam-tetools-latest.sif RepeatModeler -database Neomusotima -pa 96 -LTRStruct
+```
 
 ### Mitogenome Assembly and Annotation
 
