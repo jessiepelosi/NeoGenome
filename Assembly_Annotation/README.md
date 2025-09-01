@@ -53,6 +53,7 @@ We first generated a species-specific repeat library and then masked repeats in 
 ```
 singularity exec dfam-tetools-latest.sif BuildDatabase -name Neomusotima $asm
 singularity exec dfam-tetools-latest.sif RepeatModeler -database Neomusotima -pa 96 -LTRStruct
+singularity exec dfam-tetools-latest.sif -pa 96 -norna -lib Neomusotima-families.fa -no_is -gff -a -xsmall $asm
 ```
 
 ### Mitogenome Assembly and Annotation
