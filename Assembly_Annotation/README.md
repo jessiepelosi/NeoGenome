@@ -56,6 +56,19 @@ singularity exec dfam-tetools-latest.sif RepeatModeler -database Neomusotima -pa
 singularity exec dfam-tetools-latest.sif -pa 96 -norna -lib Neomusotima-families.fa -no_is -gff -a -xsmall $asm
 ```
 
+We then used the BRAKER3 pipeline to generate gene model predictions using the soft-masked genome as input. 
+```
+singularity exec braker3.sif braker.pl --genome=$asm --species=Neo --prot_seq=$proteins --threads=8 \
+  --AUGUSTUS_CONFIG_PATH=/blue/barbazuk/jessiepelosi/scripts/BUSCO_scripts/Genome/config \
+  --GENEMARK_PATH=/blue/barbazuk/jessiepelosi/local_prgms/GeneMark-ETP/
+```
+
+The longest isoform for each gene was extracted from the annotation using AGAT. 
+```
+gtf2gff.pl <braker.gtf --out=braker.gff
+agat_sp_keep_longest_isoform.pl -gff braker.gff -o braker.longest.gff
+```
+
 ### Mitogenome Assembly and Annotation
 
 We used MitoHiFi to first identify the closest reference mitogenome available on NCBI and then assemble and annotate the mitogenome for <i>Neomusotima</i> using this as a reference genome. 
