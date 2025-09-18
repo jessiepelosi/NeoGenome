@@ -18,3 +18,14 @@ iqtree2 -s mt_concat.fasta -p mt_partitions2.txt -m MFP -B 1000
 ```
 
 ### Nuclear Phylogenomics
+
+
+
+
+### Synteny 
+
+Preperation of data for GENESPACE. 
+
+```
+grep "\sgene" [file.gff3] | cut -f 1,4,5,9 > [file.bed]
+```
