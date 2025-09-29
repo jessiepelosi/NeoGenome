@@ -35,7 +35,7 @@ done
 
 for file in *.$ext; do
         sed -i -r 's/Parotis_xtbg_[0-9]*-RA/PACH/g' "$file"
-        sed -i -r 's/MECY_[A-Za-z0-9\.]*/MEFL/g' "$file"
+        sed -i -r 's/MEFL_[A-Za-z0-9\.]*/MEFL/g' "$file"
         sed -i -r 's/MUNI_[A-Za-z0-9\.]*/MUNI/g' "$file"
         sed -i -r 's/PAST_[A-Za-z0-9\.]*/PAST/g' "$file"
         sed -i -r 's/NECO_[A-Za-z0-9\.]*/NECO/g' "$file"
