@@ -1,10 +1,10 @@
-# Aligning sequences
+## Aligning sequences
 Aligned sequences with macse (https://www.agap-ge2pop.org/macse/). Best run in array with SLURM script.
 ```
 $java -jar macse_v2.07.jar -prog alignSequences -seq "$file".headers.cds
 ```
 
-# Triming aligned sequences 
+## Triming aligned sequences 
 Replace ! or * with -.
 ```
 sed 's/!/-/g' "$file"_NT.fa > "$file"_NT_clean.fa
@@ -15,13 +15,13 @@ Trimed aligned sequences to remove columns with less than 50% data. Run as SLURM
 $trimal -in "$file"_NT_clean.fa -out "$file"_NT_clean.fa.trim -gt 0.5 
 ```
 
-# Generating trees 
+## Generating trees 
 Used iqtree3 (https://iqtree.github.io/) to generate phylogenies. Best run in array with SLURM script.
 ```
 $iqtree3 -s $file -m MFP -B 1000 --alrt 1000 --redo
 ```
 
-# Rename IDs
+## Rename IDs
 Renamed species IDs so all are consistent. 
 ```
 #!/bin/sh 
@@ -57,7 +57,7 @@ for file in *.$ext; do
 done
 ```
 
-# Coalescence tree
+## Coalescence tree
 Concatenated iqtree .treefiles
 ```
 cat *.treefile > moth_trees
